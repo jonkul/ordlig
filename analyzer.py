@@ -59,13 +59,49 @@ def grey():
     global g
 
     print("Current greyed out letters: " + str(g))
-    new = input("Add another one (e.g 'y' or 'm'): ")
-    g.append(new)
+    new = input("Add another one (e.g 'y' or 'asdf'): ")
+    for x in new:
+        if not x in g:
+            g.append(x)
 
     print("\nAdded grey letter:")
     print(str(g))
 
     return g
+
+
+def yellow():
+    """
+    Add yellow letters to global y.
+    """
+    global y
+
+    print("Current yellow letters: " + str(y))
+    new = input("Add another one (e.g '0y' or '4m'): ")
+    if not new in y:
+        y.append(new)
+
+    print("\nAdded yellow letter:")
+    print(str(y))
+
+    return y
+
+
+def green():
+    """
+    Add green letters to global gn.
+    """
+    global gn
+
+    print("Current green letters: " + str(gn))
+    new = input("Add another one (e.g '0y' or '4m'): ")
+    pos = int(new[0])
+    gn[pos] = new[1]
+
+    print("\nAdded green letter:")
+    print(str(gn))
+
+    return gn
 
 
 def greyrm():
@@ -105,39 +141,6 @@ def greenrm():
     gn.remove(gn[-1])
 
     print("\nRemoved last added green letter, list now contains:")
-    print(str(gn))
-
-    return gn
-
-
-def yellow():
-    """
-    Add yellow letters to global y.
-    """
-    global y
-
-    print("Current yellow letters: " + str(y))
-    new = input("Add another one (e.g '0y' or '4m'): ")
-    y.append(new)
-
-    print("\nAdded yellow letter:")
-    print(str(y))
-
-    return y
-
-
-def green():
-    """
-    Add green letters to global gn.
-    """
-    global gn
-
-    print("Current green letters: " + str(gn))
-    new = input("Add another one (e.g '0y' or '4m'): ")
-    pos = int(new[0])
-    gn[pos] = new[1]
-
-    print("\nAdded green letter:")
     print(str(gn))
 
     return gn
