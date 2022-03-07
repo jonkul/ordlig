@@ -18,6 +18,10 @@ def menu():
         y)                Yellow letters
         gn)               Green letters
 
+        gr)               Remove last grey
+        yr)               Remove last yellow
+        gnr)              Remove last green
+
         c)                Clear filters
         """
         )

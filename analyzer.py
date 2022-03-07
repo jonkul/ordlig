@@ -37,6 +37,21 @@ def read_lines():
     return line_content
 
 
+def clear():
+    """
+    Opens the text file, ordlig5 by default
+    """
+    global g
+    global y
+    global gn
+
+    g = []
+    y = []
+    gn = ["", "", "", "", ""]
+
+    return ""
+
+
 def grey():
     """
     Add greyed out letters to global g.
@@ -47,7 +62,52 @@ def grey():
     new = input("Add another one (e.g 'y' or 'm'): ")
     g.append(new)
 
+    print("\nAdded grey letter:")
+    print(str(g))
+
     return g
+
+
+def greyrm():
+    """
+    Remove last added entry in global g.
+    """
+    global g
+
+    g.remove(g[-1])
+
+    print("\nRemoved last added grey letter, list now contains:")
+    print(str(g))
+
+    return g
+
+
+def yellowrm():
+    """
+    Remove last added entry in global y.
+    """
+    global y
+
+    y.remove(y[-1])
+
+    print("\nRemoved last added yellow letter, list now contains:")
+    print(str(y))
+
+    return y
+
+
+def greenrm():
+    """
+    Remove last added entry in global gn.
+    """
+    global gn
+
+    gn.remove(gn[-1])
+
+    print("\nRemoved last added green letter, list now contains:")
+    print(str(gn))
+
+    return gn
 
 
 def yellow():
@@ -59,6 +119,9 @@ def yellow():
     print("Current yellow letters: " + str(y))
     new = input("Add another one (e.g '0y' or '4m'): ")
     y.append(new)
+
+    print("\nAdded yellow letter:")
+    print(str(y))
 
     return y
 
@@ -73,6 +136,9 @@ def green():
     new = input("Add another one (e.g '0y' or '4m'): ")
     pos = int(new[0])
     gn[pos] = new[1]
+
+    print("\nAdded green letter:")
+    print(str(gn))
 
     return gn
 

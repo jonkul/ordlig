@@ -14,23 +14,25 @@ def main():
     while True:
         m.menu()
         inp = input("\nChoice: ")
+
         if inp == "g":
             a.grey()
-            print("\nAdded grey letter:")
-            print(str(a.g))
         elif inp == "y":
             a.yellow()
-            print("\nAdded yellow letter:")
-            print(str(a.y))
         elif inp == "gn":
             a.green()
-            print("\nAdded green letter:")
-            print(str(a.gn))
+
+        elif inp == "gr":
+            a.greyrm()
+        elif inp == "yr":
+            a.yellowrm()
+        elif inp == "gnr":
+            a.greenrm()
+
         elif inp == "c":
-            a.g = []
-            a.y = []
-            a.gn = ["", "", "", "", ""]
+            a.clear()
             print("Filters cleared!")
+
         elif inp == "q":
             print("Bye, bye - and welcome back anytime!")
             return
