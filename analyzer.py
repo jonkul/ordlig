@@ -2,12 +2,17 @@
 Functions for ordlig helper
 """
 
+import string
+from operator import itemgetter
 
-filename = "ordlig5.csv"
+validchars = "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖabcdefghijklmnopqrstuvwxyzåäöéê"
+filename = "ordlig5b.csv"
 new_filename = ''
 g = []
 y = []
 gn = ["", "", "", "", ""]
+values = {}
+words = {}
 
 
 def file():
@@ -39,7 +44,7 @@ def read_lines():
 
 def clear():
     """
-    Opens the text file, ordlig5 by default
+    Opens the text file, ordlig5b by default
     """
     global g
     global y
@@ -146,25 +151,65 @@ def greenrm():
     return gn
 
 
-def ten():
+def letter_frequency():
     """
-    Run filters and print words
+    Counts the frequency of letters.
     """
-    global g, y, gn
+    global values
+
+    string_content = read_file().lower()
+
+    char_list = []
+    for i in string_content:
+        if i in validchars:
+            char_list += i
+
+    dic = {}
+    for char in char_list:
+        if char not in dic:
+            dic[char] = 1
+        else:
+            dic[char] += 1
+
+    dic_list = dic.items()
+    dic_sorted = sorted(dic_list, key=itemgetter(1), reverse=True)
+    dic_cut = dic_sorted[0:]
+    dic_2 = {key: value for key, value in dic_cut}
+
+    # perc = count_letters()
+
+    for key, value in dic_2.items():
+        values[key] = str(value) # + " | " + str(round(value*100/perc, 1)) + "%"
+
+    #for key, value in values.items():
+    #    print(key + ":", value)
+    return values
+
+    # print(values["a"])
+
+
+def word_score(word):
+    """
+    Scores a word, based on how popular its letters are
+    """
+    global values, words
+    fword = []
+    score = 0
+
+    if not values:
+        letter_frequency()
+
+    # remove duplicate letters
+    for letter in word:
+        if not letter in fword:
+            fword.append(letter)
+    # print(str(fword))
+
+    for letter in fword:
+        score += int(values[letter])
+    # print(str(score))
     
-    line_content = read_lines()
-    if g:
-        line_content = filterg(line_content)
-    if y:
-        line_content = filtery(line_content)
-    if gn:
-        line_content = filtergn(line_content)
-    
-    print("\n" + str(len(line_content)) + " filtered words:")
-    for line in line_content[0:30]:
-        print("       " + line[0:5])
-    
-    return ""
+    return score
 
 
 def filterg(line_content):
@@ -192,14 +237,17 @@ def filtery(line_content):
     filtered = []
     for line in line_content:
         add_line = True
+        line2 = line[:5]
         for x in range(len(y)):
             if not str(y[x][1]) in line:
                 add_line = False
         for x in range(len(y)):
-            if str(y[x][1]) == str(line[x]):
+            s = y[x][1] #a
+            i = int(y[x][0]) #2
+            if str(s) == str(line2[i]):
                 add_line = False
         if add_line == True:
-            filtered.append(line)
+            filtered.append(line2)
     return filtered
 
 
@@ -212,10 +260,49 @@ def filtergn(line_content):
     filtered = []
     for line in line_content:
         add_line = True
-        for x in range(len(y)):
+        for x in range(len(gn)):
             if gn[x] != '':
                 if gn[x] != line[x]:
                     add_line = False
         if add_line == True:
             filtered.append(line)
     return filtered
+
+
+def output():
+    """
+    Run filters and print words
+    """
+    global g, y, gn
+    
+    # read dictionary
+    line_content = read_lines()
+    words = {}
+    
+    # apply filters if necessary
+    if gn:
+        line_content = filtergn(line_content)
+    if y:
+        line_content = filtery(line_content)
+    if g:
+        line_content = filterg(line_content)
+
+    # add word and its word_score to dictionary words
+    for line in line_content:
+        words[line[:5]] = word_score(line[:5])
+
+    # sort the dictionary
+    dic_list = words.items()
+    dic_sorted = sorted(dic_list, key=itemgetter(1), reverse=True)
+    dic_cut = dic_sorted[0:31]
+    dic_2 = {key: value for key, value in dic_cut}
+
+    # print output
+    print("\n" + str(len(line_content)) + " filtered words:")
+    for key, value in dic_2.items():
+        print(key + ":", value)
+
+    #for line in line_content[0:30]:
+    #    print("       " + line[0:5])
+    
+    return ""

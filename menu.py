@@ -22,6 +22,8 @@ def menu():
         yr)               Remove last yellow
         gnr)              Remove last green
 
+        s)                Statistics
+
         c)                Clear filters
         """
         )
@@ -29,4 +31,4 @@ def menu():
     print("\n       Greyed out letters: " + str(a.g))
     print("       Yellow letters: " + str(a.y))
     print("       Green letters: " + str(a.gn))
-    print(a.ten())
+    print(a.output())

@@ -28,6 +28,12 @@ def main():
             a.yellowrm()
         elif inp == "gnr":
             a.greenrm()
+        
+        elif inp == "s":
+            values = a.letter_frequency()
+            print("The letters occur this many times in the dictionary:")
+            for key, value in values.items():
+                print(key + ":", value)
 
         elif inp == "c":
             a.clear()
