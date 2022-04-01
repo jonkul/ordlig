@@ -28,7 +28,7 @@ def read_file():
     """
     Opens the text file, ordlig5 by default
     """
-    with open(file()) as filehandle:
+    with open(file(), 'r', encoding='utf-8') as filehandle:
         content = filehandle.read()
     return content
 
@@ -37,7 +37,7 @@ def read_lines():
     """
     Opens the text file, ordlig5 by default
     """
-    with open(file()) as filehandle:
+    with open(file(), 'r', encoding='utf-8') as filehandle:
         line_content = filehandle.readlines()
     return line_content
 
